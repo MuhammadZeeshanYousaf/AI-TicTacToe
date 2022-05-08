@@ -46,11 +46,11 @@ def evaluate(b: Board):
     return (3 * get_x(b) + get_o(b)) - (3 * get_z(b) + get_y(b))
 
 
-def child_nodes(b: Board) -> int:
-    empty_nodes = 0
+def empty_cells(b: Board) -> int:
+    _empty_cells = 0
     for row in b.game_board():
-        empty_nodes += row.count(BLANK)
-    return empty_nodes
+        _empty_cells += row.count(BLANK)
+    return _empty_cells
 
 
 def ply(b: Board, mark: bool):
@@ -67,7 +67,7 @@ def ply(b: Board, mark: bool):
 # function signature minimax(depth=0, board=Board(), maximizingPlayer=True, alpha=MIN, beta=MAX, row=0, col=0):
 # Returns optimal value for current player and row column for the optimal ply
 def minimax(depth, board, maximizingPlayer, alpha, beta, row=0, col=0):
-    empty_cells = child_nodes(board)
+    _empty_cells = empty_cells(board)
     # Terminating condition
     if depth == 3:
         return evaluate(board), row, col
@@ -76,7 +76,7 @@ def minimax(depth, board, maximizingPlayer, alpha, beta, row=0, col=0):
         '''MAX Node'''
         best = MIN
         # Recur for possible no. of children for current state of board
-        for each in range(empty_cells):
+        for each in range(_empty_cells):
             # Max making one ply
             row, col = ply(board, TICK)
             val = minimax(depth + 1, board, False, alpha, beta, row, col)
@@ -92,7 +92,7 @@ def minimax(depth, board, maximizingPlayer, alpha, beta, row=0, col=0):
         '''MIN Node'''
         best = MAX
         # Recur for possible no. of children for current state of board
-        for each in range(empty_cells):
+        for each in range(_empty_cells):
             # After Max ply, making Min's one ply
             row, col = ply(board, CROSS)
             val = minimax(depth + 1, board, True, alpha, beta, row, col)
@@ -107,7 +107,7 @@ def minimax(depth, board, maximizingPlayer, alpha, beta, row=0, col=0):
 
 
 # Code Docs
-child_nodes.__doc__ = "This function takes an argument 'b' of type Board and returns how many children can be " \
+empty_cells.__doc__ = "This function takes an argument 'b' of type Board and returns how many children can be " \
                       "created for current board "
 ply.        __doc__ = "This function take a board and mark symbol as arguments and return row col of the first " \
               "occurred blank space. "

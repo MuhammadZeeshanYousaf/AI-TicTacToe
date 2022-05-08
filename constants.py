@@ -8,3 +8,9 @@ BLANK = None
 MIN = -1000
 # taking it as infinity
 MAX = 1000
+# Game name
+TICTACTOE = "Tic Tac Toe"
+# standard font
+FONT = "Helvetica"
+# Developers
+AUTHOR = "© developed by Zeeshan & Fatima"

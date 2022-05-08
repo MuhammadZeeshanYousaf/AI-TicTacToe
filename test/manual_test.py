@@ -32,7 +32,7 @@ if __name__ == '__main__':
     print("y", get_y(myboard))
     print("Evaluated", evaluate(myboard))
 
-    print("possible child nodes", child_nodes(myboard))
+    print("possible child nodes", empty_cells(myboard))
 
     # dup_board = deepcopy(myboard)     # myboard replica
     # print(myboard)
