@@ -1,22 +1,23 @@
+from numpy import transpose
 from constants import *
 
 
 class Board:
     # instance variables
-    __board = [[None, None, None],
-               [None, None, None],
-               [None, None, None]]
+    __board = [[BLANK, BLANK, BLANK],
+               [BLANK, BLANK, BLANK],
+               [BLANK, BLANK, BLANK]]
 
     # methods
     def game_board(self):
-        return self.__board.copy()
+        return self.__board
 
     def rows(self):
-        return list(self.__board)
+        return self.__board.copy()
 
     def columns(self):
-        from numpy import transpose
-        return transpose(self.__board)
+        cols = transpose(self.__board)  # -> numpy.ndarray
+        return [list(i) for i in cols]  # convert to list
 
     def diagonals(self) -> list:
         b = self.__board
@@ -25,25 +26,16 @@ class Board:
         return list((diagonal1, diagonal2))
 
     def row_col_dia(self):
-        combine_list = list()
-        combine_list.append([i for i in self.rows()])
-        combine_list.append([j for j in self.columns()])
-        combine_list.append([k for k in self.diagonals()])
-        return combine_list
+        return self.rows() + self.columns() + self.diagonals()
 
-    def __mark(self, row: int, col: int, symbol: bool):
-        if self.__board[row][col] is None:
-            self.__board[row][col] = symbol
-        else:
-            raise Exception("The Board Box is not empty.")
+    def tick(self, row, col): self.__board[row][col] = TICK
 
-    def tick(self, row, col): self.__mark(row, col, TICK)
+    def cross(self, row, col): self.__board[row][col] = CROSS
 
-    def cross(self, row, col): self.__mark(row, col, CROSS)
+    def blank(self, row, col): self.__board[row][col] = BLANK
 
     # Code Docs
     game_board. __doc__ = "@return __board[list]"
-    __mark.     __doc__ = "@params row, col, symbol[bool] \n raises Exception"
     tick.       __doc__ = "@params row, column, symbol[bool]"
     cross.      __doc__ = "@params row, column, symbol[bool]"
-    row_col_dia.__doc__= "@returns combine_list[list] it generates a combine list of rows, columns and diagonals"
+    row_col_dia.__doc__ = "@returns combine_list[list] it generates a combine list of rows, columns and diagonals"
