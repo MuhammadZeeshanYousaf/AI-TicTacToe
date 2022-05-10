@@ -1,6 +1,5 @@
 from minimax import *
 from tkinter import *
-from tkinter import ttk
 
 
 def gui(mark):
