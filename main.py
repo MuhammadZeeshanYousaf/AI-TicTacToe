@@ -44,8 +44,10 @@ if __name__ == '__main__':
             # computer agent turn (MAX turn)
             _terminate_state = terminate_test(board)
             if _terminate_state is BLANK:
+                print(board.game_board())
                 val = minimax(0, board, True, MIN, MAX)
                 r, c = val[1], val[2]
+                print("Main return:", val[0])
                 board.tick(r, c)
                 button[r][c].config(text=gui(board.game_board()[r][c]))
                 cells_label.config(text=f"Empty Cells: {empty_cells(board)}")
